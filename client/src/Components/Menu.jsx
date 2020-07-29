@@ -1,17 +1,37 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
-import '../Style/Menu.css'
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import '../Style/Menu.scss'
 
-function Menu() {
+
+export default class Menu extends Component {
+
+  render() {
+    let visibility = "hide";
+
+    if(this.props.menuVisibility) {
+      visibility = "show";
+    }
     return (
-      <div className="menu_main">
-          <p>This is a not-yet-hidden navigation menu</p>
-          <Link to="/">Home</Link>
-          <Link to="/login">Login</Link>
-          <Link to="/register">Register</Link>
-          <Link to="/myboard">My Board</Link>
+      <div className="menu-nav">
+      <div id="flyoutMenu"
+      onMouseUp={this.props.handleMouseDown}
+      className={visibility}>
+        <h2>
+          <Link 
+            className="link" to="/">Home</Link></h2>
+            <h2>
+            <Link 
+          className="link" to="/login">Login</Link></h2>
+          <h2>
+          <Link 
+        className="link" to="/register">Register</Link></h2>
+        <h2>
+          <Link 
+        className="link" to="/myboard">My Board</Link></h2>
       </div>
-    );
+      </div>
+    )
+
   }
-  
-  export default Menu;
+}
+

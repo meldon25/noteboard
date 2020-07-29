@@ -1,0 +1,29 @@
+
+#fp_main {
+    position: relative;
+
+
+    #background {
+        min-width: 100vw;
+        max-height: 100vh;
+        position: relative;
+        display: flex;
+    }
+
+    .board-menu {
+        position: absolute;
+        top: 2%;
+        left: 1%;
+    }
+
+}
+
+.notes {
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    top: 6%;
+    left: 20%;
+}
+
+

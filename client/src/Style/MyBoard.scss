@@ -1,0 +1,37 @@
+
+.myboard_main {
+    display: flex;
+    position: relative;
+}
+
+.board_menu {
+    position: absolute;
+    cursor: pointer;
+    top: 2%;
+    left: 1%;
+}
+
+.myboard {
+    display: flex;
+    position: absolute;
+    margin-top: 20px;
+
+    .my-board-header {
+        color: black;
+        font-size: 30px;
+        font-weight: 700;
+        margin-left: 31px;
+    }
+}
+
+.mylists {
+    // border: 1px purple solid;
+    width: 40vw;
+    margin-left: 30%;
+}
+
+.mynotes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

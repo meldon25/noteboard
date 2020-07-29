@@ -1,0 +1,21 @@
+#footer_main {
+    position: absolute;
+    bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+
+    #create-icon {
+        display: flex;
+        margin-bottom: 25px;
+        max-width: 50px;
+        cursor: pointer;
+    }
+
+    #about-icon {
+        display: flex;
+        cursor: pointer;
+    }
+
+
+}
