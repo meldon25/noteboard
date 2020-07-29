@@ -45,7 +45,7 @@ class MyBoard extends React.Component {
             user_liked={item.user_liked}
             created_at={item.created_at}
             history={history}
-            refresh={this.getMyBoard}
+            // refresh={this.getMyBoard}
             delete_btn="true"
             update_btn="true"
             top={Math.floor(Math.random() * 60) - 30}
