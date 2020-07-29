@@ -35,13 +35,14 @@ class MyBoard extends React.Component {
       return this.state.myNotes.map((item, index) => {
         return (
           <Note
-            key={index}
+            key={item.id}
             note_id={item.id}
             user_id={item.user_id}
             userId={this.props.userId}
             content={item.content}
             color={item.color}
             num_likes={item.num_likes}
+            user_liked={item.user_liked}
             created_at={item.created_at}
             history={history}
             refresh={this.getMyBoard}
@@ -63,7 +64,7 @@ class MyBoard extends React.Component {
       return this.state.myFavorites.map((item, index) => {
         return (
           <Note
-            key={index}
+            key={item.id}
             note_id={item.id}
             user_id={item.user_id}
             userId={this.props.userId}
@@ -74,6 +75,7 @@ class MyBoard extends React.Component {
             created_at={item.created_at}
             history={history}
             user_liked={true}
+            closeModal={true}
             refresh={this.getMyBoard}
             delete_btn="false"
             update_btn="false"
@@ -104,26 +106,15 @@ class MyBoard extends React.Component {
           <div className="myboard">
             <div className="mylists">
               <Tabs>
-                <div label="My Posts">
-                  {/* Hello I am Posts */}
+                <div className="posts-tab" label="My Posts">
+                  <div className="posts-tab"></div>
                   {this.renderMyNotes()}
               </div>
-                <div label="My Favorites">
-                  {/* Hello I am Favorites */}
+                <div className="fav-tab" label="My Favorites">
                   {this.renderMyFavorites()}
               </div>
               </Tabs>
-              {/* <p className="my-board-header">My Posts</p>
-              <div className="mynotes">
-                {this.renderMyNotes()}
-              </div> */}
             </div>
-            {/* <div className="mylists">
-              <p className="my-board-header">My Favorites</p>
-              <div className="mynotes">
-                {this.renderMyFavorites()}
-              </div>
-            </div> */}
           </div>
         </div>
         <Footer userId={this.props.userId} refresh={this.getMyBoard} />

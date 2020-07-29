@@ -66,18 +66,30 @@ class EditModal extends React.Component {
     this.setState({ showModal: false });
   }
 
-  render() {
-    return (
-      <div>
-        <button
-          className="update-btn "
+  render_update_btn()  {
+      const toggleForm = this.props.update_btn ? "danger" : "";
+      if (this.props.update_btn === "true") {
+        return (
+          <button
+          id="update-btn"
+          className={`${this.props.color}`}
           onClick={this.updateClick}
           value={this.props.userId}
           name={this.props.note_id}
           onClick={this.handleOpenModal}
         >
-          update
-        </button>
+          Update
+        </button> 
+        );
+      } else {
+        return null
+      }
+    }
+
+  render() {
+    return (
+      <div>
+        {this.render_update_btn()}
         <ReactModal
           isOpen={this.state.showModal}
           ariaHideApp={false}

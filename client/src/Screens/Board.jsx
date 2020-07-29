@@ -32,7 +32,7 @@ class Board extends React.Component {
       return this.state.notes.map((item, index) => {
         return (
           <Note
-            key={index}
+            key={item.id}
             note_id={item.id}
             user_id={item.user_id}
             user_name={item.user_name}
@@ -43,8 +43,10 @@ class Board extends React.Component {
             ago_string={item.ago_string}
             history={history}
             activeId={this.props.userId}
+            trackAnons={this.props.trackAnons}
             userId={this.props.userId} 
-            user_liked={item.user_liked} // rename this? activeUserLiked, maybe?
+            update_btn="false"
+            user_liked={this.props.anonLikes.includes(item.id) || item.user_liked} // rename this? activeUserLiked, maybe?
             top={Math.floor(Math.random() * 60)-30}
             left={Math.floor(Math.random() * 60)-30}
             rotate={Math.floor(Math.random() * 10) * (Math.random() > .5 ? -1 : 1)}
