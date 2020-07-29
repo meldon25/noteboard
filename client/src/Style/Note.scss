@@ -9,19 +9,17 @@ $primary-green: #28D701;
      display: flex;
      cursor: pointer;
 
+
      .main_note {
           padding: 25px 25px 10px 20px;
           margin-right: 20px;
           margin-left: 20px;
           margin-bottom: 20px;
-          width: 200px;
-          height: 200px;
+          width: 210px;
+          max-width: 210px;
+          height: 210px;
           font-size: 10px;
-          // box-shadow: 0 0 10px 1px #1C1C1C;
-          // box-shadow: 6px 6px 10px -6px #1C1C1C;
           box-shadow: 0 -6px 0 transparent, 0 4px 10px rgba(0,0,0, .35);
-
-
       }
 
       .date-from {
@@ -68,16 +66,30 @@ $primary-green: #28D701;
     flex-direction: row;
     justify-content: space-between;
 
-    .like-button {
-          margin-top: 12px;
-          height: 4.7vh;
-          width: 3.2vw;
+
+    .like-buttons {
+          display: flex;
+          margin-top: 20px;
+          margin-right: 50px;
      }
 
-     .like-button:hover {
-          height: 4.8vh;
-          width: 3.3vw;
+    .unliked-heart-cont {
+     display: flex;
+     position: absolute;
+    }
+
+    .liked-heart-cont {
+         display: flex;
+         position: absolute;
+         z-index: 1;
+    }
+
+     .liked-heart {
+          max-height: 24px;
+          max-width: 24px; 
+          z-index: 2;
      }
+
 
     .like_content {
          margin-top: 25px;
@@ -85,10 +97,18 @@ $primary-green: #28D701;
 }
 
 .delete-btn {
-     height: 20px;
-     width: 55px;
+     height: 30px;
+     width: 70px;
      color: white;
      background-color: red;
+     border-radius: 50px;
+}
+
+.update-btn {
+     height: 30px;
+     width: 70px;
+     color: white;
+     background-color: grey;
      border-radius: 50px;
 }
 
@@ -119,6 +139,8 @@ $primary-green: #28D701;
 .cont-big-note {
      margin-top: 10px;
      height: 34vh;
+     width: 32vw;
+     max-width: 100%;
      display: flex;
 }
 

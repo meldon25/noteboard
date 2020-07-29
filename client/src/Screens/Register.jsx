@@ -30,8 +30,7 @@ class Register extends Component {
     const { name, email, password } = this.state;
     const userData = {
       user: {
-        first_name: name.split(' ')[0],
-        last_name: name.split(' ')[1] || 'noLastName',
+        name: name,
         email: email,
         password: password
       }
@@ -79,7 +78,7 @@ class Register extends Component {
           alt="brown corkboard background"
         />
         <div className="nav-link">
-          <MenuContainer />
+          <MenuContainer userId={this.props.userId} />
         </div>
         <div id="blue-note"></div>
         <main className="register-form">

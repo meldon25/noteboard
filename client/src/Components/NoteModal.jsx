@@ -12,6 +12,7 @@ class NoteModal extends React.Component {
       showModal: false,
       user_id: this.props.userId,
       content: "",
+      color: this.assignColor()
     };
 
     this.handleOpenModal = this.handleOpenModal.bind(this);
@@ -25,17 +26,20 @@ class NoteModal extends React.Component {
   }
 
   handleCloseModal() {
-    this.setState({ showModal: false });
+    this.setState({ 
+      showModal: false, 
+      color: this.assignColor(),
+      content: ""
+      });
   }
-
-  
 
   //CreateNote Function
 
-  handleChange = event =>
+  handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value,
     });
+  }
 
     assignColor = () => {
       let number = Math.floor(Math.random() *5)
@@ -51,35 +55,38 @@ class NoteModal extends React.Component {
         note: {
           user_id: this.props.userId,
           content: content,
-          color: this.assignColor()
+          color: this.state.color
         }
       };
 
-    postNote(noteData)
-      .catch(error => {
-        console.error(error);
-      });
-  };
-
-
-
+      postNote(noteData)
+        .then(data => {
+          console.log(data);
+          this.handleCloseModal();
+          this.props.refresh();
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    };
 
   render() {
-    const { user_id, content } = this.state;
+    const { user_id, content, color} = this.state;
     return (
       <div>
         <img
           onClick={this.handleOpenModal}
-          // src="https://i.imgur.com/Df7R8tu.png"
           src="https://i.imgur.com/jyjtEOG.png"
           id="create-icon"
           className="img-responsive"
           alt="black plus button to create a post"
         />
         <ReactModal
+          color={color}
           isOpen={this.state.showModal}
           contentLabel="Minimal Modal"
-          className="Modal"
+          className={`Modal  ${color}`}
+          modalColor={color}
           overlayClassName="Overlay"
           ariaHideApp={false}
           onRequestClose={this.handleCloseModal}
@@ -99,7 +106,7 @@ class NoteModal extends React.Component {
               name="content"
               value={content}
               placeholder="Write thoughts and ideas here..."
-              className="input"
+              className={`input  ${color}`}
               required
             ></textarea>
             <div className="post-cont">

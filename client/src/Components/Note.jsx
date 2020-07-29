@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { createLike, deleteLike, deleteNote } from '../Services/ApiMethods'
 import '../Style/Note.scss'
 import ReactModal from 'react-modal'
+import EditModal from './EditModal'
 
 class Note extends Component {
   constructor(props) {
@@ -30,12 +31,19 @@ class Note extends Component {
   }
   
 
-  handleChange = (e) => {
+  deleteClick = async (e) => {
     let noteData = {
       user_id: e.target.value,
       note_id: e.target.name
     }
-    deleteNote(noteData)
+    await deleteNote(noteData);
+    this.handleCloseModal();
+    this.props.refresh();
+  }
+
+    updateClick = async (e) => {
+      console.log("modal works")
+      // <EditModal/>
   }
 
   renderBtn = () => {
@@ -45,7 +53,7 @@ class Note extends Component {
       return (
         <button
           className={toggleForm, "delete-btn"}
-          onClick={this.handleChange}
+          onClick={this.deleteClick}
           value={this.props.userId}
           name={this.props.note_id}
         >
@@ -99,8 +107,20 @@ class Note extends Component {
   }
 
   render() {
+
+    let notePosition;
+    if (this.props.top) {
+      notePosition = {
+        position: 'relative',
+        top: `${this.props.top}px`,
+        left: `${this.props.left}px`,
+        transform: `rotate(${this.props.rotate}deg)`,
+        zIndex: `${this.props.zIndex}`
+      }
+    }
+
     return (
-      <div id="note_main">
+      <div id="note_main" style={notePosition ? notePosition : null}>
         <ReactModal
           isOpen={this.state.showModal}
           contentLabel="Minimal Modal"
@@ -124,6 +144,26 @@ class Note extends Component {
             className="cont-big-note">
             <p>{this.props.content}</p>
           </div>
+          <div className="like_box">
+            <p className="like_content">Likes: {this.state.num_likes}</p>
+            {this.renderBtn()}
+            <div className="like-buttons">
+              <div className="unliked-heart-cont">
+            <img
+              src={this.state.user_liked ? "https://i.imgur.com/Yv7Nr4B.png" : "https://i.imgur.com/O92Pzls.png"}
+              onClick={this.clickLike}
+              className="like-button btn-default"
+              value={this.props.userId}
+              name={this.props.note_id}
+              alt="corkboard"
+            />
+            </div>
+            <div className="liked-heart-cont">
+            {/* {this.state.user_liked ? <img src="https://i.imgur.com/Yv7Nr4B.png" className="liked-heart" /> : ``} */}
+            {/* replace XXXXX with real user feedback */}
+            </div>
+          </div>
+          </div>
           <div
             className="date-from-big">
             <div
@@ -135,22 +175,11 @@ class Note extends Component {
               <p>{this.props.ago_string}</p>
             </div>
           </div>
-          <div className="like_box">
-            <p className="like_content">Likes: {this.state.num_likes}</p>
-            {this.renderBtn()}
-            <img
-              src="https://i.imgur.com/Dh7Znb8.png"
-              onClick={this.clickLike}
-              className="like-button btn btn-default"
-              value={this.props.userId}
-              name={this.props.note_id}
-              alt="corkboard"
-            />
-            {this.state.user_liked ? `XXXXX` : ``}
-            {/* replace XXXXX with real user feedback */}
-          </div>
-        {/* </div> */}
-          
+          <EditModal
+          note_id={this.props.note_id}
+          color={this.props.color}
+          refresh={this.props.refresh} 
+          />
         </ReactModal>
         <div
           className={`main_note ${this.props.color}`}

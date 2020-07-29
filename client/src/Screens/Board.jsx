@@ -1,4 +1,5 @@
 import React from "react";
+import Logout from './Logout';
 import MenuContainer from "../Components/MenuContainer";
 import Note from "../Components/Note";
 import Footer from "../Components/Footer";
@@ -14,14 +15,15 @@ class Board extends React.Component {
   }
 
   componentDidMount() {
-   const notes = fetchNotes();
-   console.log(notes)
-   const self = this
-  notes.then(function(data) { 
-  self.setState(state => ({
-        notes: data.data
-      }));
-    });
+    this.getNotesFromApi();
+  }
+
+  getNotesFromApi = async () => {
+     const notes = await fetchNotes(); 
+     console.log(notes);
+     this.setState(state => ({
+       notes: notes.data
+     }));
   }
 
   renderNotes = () => {
@@ -43,7 +45,11 @@ class Board extends React.Component {
             activeId={this.props.userId}
             userId={this.props.userId} 
             user_liked={item.user_liked} // rename this? activeUserLiked, maybe?
-            // setUser={this.setUser} 
+            top={Math.floor(Math.random() * 60)-30}
+            left={Math.floor(Math.random() * 60)-30}
+            rotate={Math.floor(Math.random() * 10) * (Math.random() > .5 ? -1 : 1)}
+            zIndex={this.state.notes.length - index} 
+            refresh={this.getNotesFromApi}
           />
         );
       });
@@ -60,14 +66,14 @@ class Board extends React.Component {
         src="https://i.imgur.com/V324XgZ.jpg" 
         alt="brown corkboard background" />
           <div className="board-menu">
-            <MenuContainer />
+            <MenuContainer userId={this.props.userId} />
           </div>
           <div className="board-box">
             <div className="notes">
             {this.renderNotes()}
             </div>
         </div>
-        <Footer userId={this.props.userId} />
+        <Footer userId={this.props.userId} refresh={this.getNotesFromApi} />
       </div>
     );
   }

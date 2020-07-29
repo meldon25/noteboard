@@ -10,6 +10,16 @@ export const fetchNotes = async () => {
     }
   }
 
+  export const fetchNote = async (note_id) => {
+  console.log(note_id)
+try {
+  const resp = await Api.get(`/notes/${note_id}`)
+  return resp
+} catch (error) {
+  throw error
+  }
+}  
+
   export const postNote = async (note) => {
     console.log(note)
 	try {
@@ -19,6 +29,18 @@ export const fetchNotes = async () => {
 		throw error
     }
 }   
+
+export const updateNote = async (note) => {
+  console.log(note)
+  console.log(note.note.id)
+try {
+  const resp = await Api.put(`/notes/${note.note.id}`, note)
+  return resp
+} catch (error) {
+  throw error
+  }
+}   
+
 
 export const deleteNote = async (note) => {
   console.log(note)
@@ -57,6 +79,26 @@ try {
       }
   }   
 
+  export const fetchUser = async (user_id) => {
+    console.log(user_id)
+  try {
+    const resp = await Api.get(`/users/${user_id}`)
+    return resp
+  } catch (error) {
+    throw error
+    }
+  }  
+
+export const updateUser = async (userId, userInfo, password) => {
+  try {
+    const resp = await Api.put(`/users/${userId}`, {user: userInfo, password: password});
+    console.log(resp);
+    return resp.data;
+  } catch (error) {
+    throw error
+  }
+}
+
 ///AUTH
 
 export const signUp = async credentials => {
@@ -83,8 +125,12 @@ export const signInUser = async credentials => {
   }
 }
 
+export const logOut = async userId => {
+  try {
+      await localStorage.clear()
+      return true
+  } catch(error) {
+      throw error
+  }
 
-
-
-
-  
+}
